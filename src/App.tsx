@@ -1,11 +1,20 @@
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./index.css";
+import { MainApp, About, Rules, LeaderBoard } from "./pages";
 
 function App() {
   return (
-    <div className="bg-black text-white h-screen">
-      <Navbar />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navbar />}>
+          <Route index element={<MainApp />} />
+          <Route path="about" element={<About />} />
+          <Route path="rules" element={<Rules />} />
+          <Route path="leaderboard" element={<LeaderBoard />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
