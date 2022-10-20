@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LinkButton from "./LinkButton";
 
 const Navbar = () => {
@@ -12,17 +12,33 @@ const Navbar = () => {
           <Link className="font-bold text-3xl" to="/">
             cruXipher
           </Link>
-          <LinkButton linkText="about" url="about" />
-          <LinkButton linkText="rules" url="rules" />
-          <LinkButton linkText="leaderboard" url="leaderboard" />
+          <LinkButton
+            linkText="[about]"
+            url="about"
+            className="decoration-white/0 hover:decoration-white/100"
+          />
+          <LinkButton
+            linkText="[rules]"
+            url="rules"
+            className="decoration-white/0 hover:decoration-white/100"
+          />
+          <LinkButton
+            linkText="[leaderboard]"
+            url="leaderboard"
+            className="decoration-white/0 hover:decoration-white/100"
+          />
         </div>
         <div className="right-nav flex items-center gap-4">
           <a className="text-white text-[20px]">{points} points</a>
-          <a className="text-white text-[20px]">timer</a>
-          <LinkButton linkText="logout" url="#" textColor="text-red" />
+          <a className="text-white text-[20px]">[02:00:00]</a>
+          <LinkButton
+            linkText="[logout]"
+            url="#"
+            textColor="text-red"
+            className="decoration-red/0 hover:decoration-red/100"
+          />
         </div>
       </nav>
-      <Outlet />
     </>
   );
 };
