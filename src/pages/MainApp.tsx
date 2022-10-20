@@ -130,7 +130,7 @@ const MainApp = () => {
     },
   ];
   return (
-    <div className="px-32 pt-8 pb-8">
+    <div className="px-32 pt-16 pb-8">
       <ol className="list-[upper-alpha] text-4xl">
         {QuestionList.map((domain) => {
           return (
@@ -139,13 +139,13 @@ const MainApp = () => {
                 <span className="text-4xl font-medium">
                   {domain.topic} [{domain.points}]
                 </span>
-                <ol className="list-decimal px-8">
+                <ol className="list-decimal px-12">
                   {domain.questions.map((question) => {
                     return (
                       <li
                         className={
                           question.slug +
-                          " text-2xl pt-1" +
+                          " text-2xl pt-1 font-normal" +
                           (question.locked == true
                             ? " text-grey"
                             : " text-white")
