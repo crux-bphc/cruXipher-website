@@ -1,4 +1,4 @@
-import QuestionView from "../components/QuestionView";
+import QuestionView from "../components/QuestionViewer";
 
 const QuestionPage = () => {
   return <QuestionView />;
