@@ -14,17 +14,17 @@ const Navbar = () => {
           </Link>
           <LinkButton
             linkText="[about]"
-            url="about"
+            url="/about"
             className="decoration-white/0 hover:decoration-white/100"
           />
           <LinkButton
             linkText="[rules]"
-            url="rules"
+            url="/rules"
             className="decoration-white/0 hover:decoration-white/100"
           />
           <LinkButton
             linkText="[leaderboard]"
-            url="leaderboard"
+            url="/leaderboard"
             className="decoration-white/0 hover:decoration-white/100"
           />
         </div>

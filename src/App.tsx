@@ -18,11 +18,11 @@ function App() {
           <>
             <Route path="/" element={<PageLayout />}>
               <Route index element={<MainApp />} />
-              <Route path="about" element={<About />} />
-              <Route path="rules" element={<Rules />} />
-              <Route path="leaderboard" element={<LeaderBoard />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/rules" element={<Rules />} />
+              <Route path="/leaderboard" element={<LeaderBoard />} />
             </Route>
-            <Route path="question" element={<PageLayout />}>
+            <Route path="/question" element={<PageLayout />}>
               <Route
                 path=":slug"
                 loader={QuestionLoader}
