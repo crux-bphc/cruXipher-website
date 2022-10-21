@@ -29,8 +29,8 @@ const Navbar = () => {
           />
         </div>
         <div className="right-nav flex items-center gap-4">
-          <a className="text-white text-[20px]">{points} points</a>
-          <a className="text-white text-[20px]">[02:00:00]</a>
+          <a className="text-white text-xl">{points} points</a>
+          <a className="text-white text-xl">[02:00:00]</a>
           <LinkButton
             linkText="[logout]"
             url="#"

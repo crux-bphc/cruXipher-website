@@ -12,7 +12,7 @@ const LinkButton = ({
   linkText,
   url,
   textColor = "text-white",
-  textSize = "text-[20px]",
+  textSize = "text-xl",
   className = "",
 }: Props) => {
   return (
