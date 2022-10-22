@@ -1,3 +1,4 @@
+import Twemoji from "../components/Twemoji";
 import LinkButton from "../components/LinkButton";
 import { useQuestionsContext } from "../providers/QuestionsProvider";
 
@@ -27,7 +28,8 @@ const MainApp = () => {
                       >
                         {question.locked ? (
                           <span>
-                            {question.title} [{question.points}] 🔒
+                            {question.title} [{question.points}]{" "}
+                            <Twemoji emoji="🔒" />
                           </span>
                         ) : (
                           <LinkButton
