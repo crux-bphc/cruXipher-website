@@ -6,13 +6,13 @@ import LeaderboardFragment from "../components/LeaderboardFragment";
 const MainApp = () => {
   const { QuestionList } = useQuestionsContext();
   return (
-    <div className="px-8 pt-16 pb-8 flex">
-      <ol className="px-32 list-[upper-alpha] text-4xl min-w-3xl">
+    <div className="px-8 pt-16 pb-8 flex justify-between">
+      <ol className="px-32 list-[upper-alpha] text-3xl max-w-5xl">
         {QuestionList.map((domain) => {
           return (
             <li key={domain.topic}>
               <div className="py-4 flex flex-col">
-                <span className="text-4xl font-medium">
+                <span className="text-3xl font-medium">
                   {domain.topic} [{domain.points}]
                 </span>
                 <ol className="list-decimal px-12">
@@ -51,7 +51,6 @@ const MainApp = () => {
           );
         })}
       </ol>
-      <div className="grow"></div>
       <LeaderboardFragment />
     </div>
   );
