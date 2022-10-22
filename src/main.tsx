@@ -6,13 +6,7 @@ import App from "./App";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <div className="min-h-screen bg-black text-white box-border">
-      <MantineProvider
-        theme={{ colorScheme: "dark" }}
-        withGlobalStyles
-        withNormalizeCSS
-      >
-        <App />
-      </MantineProvider>
+      <App />
     </div>
   </React.StrictMode>
 );
