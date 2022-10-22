@@ -25,6 +25,7 @@ const MainApp = () => {
                             ? " text-grey"
                             : " text-white")
                         }
+                        key={question.slug}
                       >
                         {question.locked ? (
                           <span>
