@@ -11,7 +11,7 @@ module.exports = {
       red: "#FF3838",
     },
     fontFamily: {
-      sans: ["Roboto Mono", ...defaultTheme.fontFamily.mono],
+      mono: ["Roboto Mono", ...defaultTheme.fontFamily.mono],
     },
     extend: {},
   },
