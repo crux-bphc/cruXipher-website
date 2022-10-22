@@ -17,7 +17,7 @@ const QuestionPage = () => {
   let params = useParams();
   return (
     <div className="flex py-16">
-      <div className="max-w-5xl">
+      <div className="max-w-6xl">
         <QuestionFragment question={question} />
       </div>
       <div className="pr-16 pl-8 border-l-2 border-dashed border-opacity-30 border-white w-full">
@@ -36,7 +36,7 @@ const QuestionPage = () => {
           {QuestionList.map((domain, idx) => {
             return (
               // TODO:Change chevron size after a meet
-              <Accordion.Item value={domain.topic}>
+              <Accordion.Item value={domain.topic} key={domain.topic}>
                 <Accordion.Control>{domain.topic}</Accordion.Control>
                 <Accordion.Panel>
                   <ol className="list-decimal pl-8">
@@ -49,6 +49,7 @@ const QuestionPage = () => {
                             ? " text-grey"
                             : " text-white")
                         }
+                        key={question.slug}
                       >
                         {question.locked ? (
                           <span>

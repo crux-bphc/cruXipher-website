@@ -9,9 +9,9 @@ const QuestionFragment = ({ question }: { question: Question }) => {
           {question.title} [{question.points} points]
         </span>
         <p className="text-xl font-normal pt-4 block">
-          {question.body.split("\n").map((x) => (
+          {question.body.split("\n").map((paragraphText) => (
             <>
-              {x}
+              {paragraphText}
               <br />
               <br />
             </>
@@ -38,7 +38,6 @@ const QuestionFragment = ({ question }: { question: Question }) => {
           </div>
         </button>
       </div>
-      {/* <code>{JSON.stringify(question)}</code> */}
     </>
   );
 };
