@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <div className="px-32 pt-16 pb-8 text-xl min-h-full text-center">
+    <div className="px-32 pt-16 pb-8 text-2xl min-h-full text-center">
       Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum
       repellendus, perspiciatis commodi autem eligendi possimus maxime magnam
       cum cumque amet temporibus ratione delectus saepe reiciendis facere

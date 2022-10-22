@@ -9,24 +9,26 @@ const Navbar = () => {
     <>
       <nav className="flex justify-between items-center px-6 py-2">
         <div className="left-nav flex items-center gap-8">
-          <Link className="font-bold text-3xl" to="/">
+          <Link className="font-bold text-4xl" to="/">
             cruXipher
           </Link>
-          <LinkButton
-            linkText="[about]"
-            url="/about"
-            className="decoration-white/0 hover:decoration-white/100"
-          />
-          <LinkButton
-            linkText="[rules]"
-            url="/rules"
-            className="decoration-white/0 hover:decoration-white/100"
-          />
-          <LinkButton
-            linkText="[leaderboard]"
-            url="/leaderboard"
-            className="decoration-white/0 hover:decoration-white/100"
-          />
+          <div className="flex gap-6 pt-2">
+            <LinkButton
+              linkText="[about]"
+              url="/about"
+              className="decoration-white/0 hover:decoration-white/100"
+            />
+            <LinkButton
+              linkText="[rules]"
+              url="/rules"
+              className="decoration-white/0 hover:decoration-white/100"
+            />
+            <LinkButton
+              linkText="[leaderboard]"
+              url="/leaderboard"
+              className="decoration-white/0 hover:decoration-white/100"
+            />
+          </div>
         </div>
         <div className="right-nav flex items-center gap-4">
           <a className="text-white text-xl">{points} points</a>

@@ -1,7 +1,7 @@
 const Rules = () => {
   return (
     <div className="px-32 pt-16 pb-8">
-      <h1 className="font-bold text-3xl text-center">Rules</h1>
+      <h1 className="font-bold text-4xl text-center">Rules</h1>
       <ol className="list-decimal">
         <li className="text-2xl pt-1 font-normal">
           <p>Teams can be upto 3 members</p>

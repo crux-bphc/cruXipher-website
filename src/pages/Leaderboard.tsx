@@ -23,38 +23,38 @@ const Leaderboard = () => {
   return (
     <div className="flex flex-col align-middle">
       <div className="flex flex-col align-middle pt-16 px-32">
-        <span className="text-4xl font-bold text-center">LEADERBOARD</span>
+        <span className="text-3xl font-bold text-center">LEADERBOARD</span>
         <div className="grid grid-cols-4 gap-4 pt-8">
-          <span className="text-3xl font-bold text-center">Team Name</span>
-          <span className="text-3xl font-bold text-center">Points Earned</span>
-          <span className="text-3xl font-bold text-center">Penalty</span>
-          <span className="text-3xl font-bold text-center">Score</span>
+          <span className="text-2xl font-bold text-center">Team Name</span>
+          <span className="text-2xl font-bold text-center">Points Earned</span>
+          <span className="text-2xl font-bold text-center">Penalty</span>
+          <span className="text-2xl font-bold text-center">Score</span>
 
-          <span className="text-2xl pl-16">8. I love sodium</span>
-          <span className="text-2xl text-center">290</span>
-          <span className="text-2xl text-center">30</span>
-          <span className="text-2xl text-center">260 Points</span>
+          <span className="text-xl pl-16">8. I love sodium</span>
+          <span className="text-xl text-center">290</span>
+          <span className="text-xl text-center">30</span>
+          <span className="text-xl text-center">260 Points</span>
 
           <div className="col-span-4 border-dashed border-opacity-30 border-white w-full border-b"></div>
           {teams.map((team) => (
             <>
-              <span className="text-2xl pl-16">
+              <span className="text-xl pl-16">
                 <Twemoji emoji={team.rank + ". " + team.name} />
               </span>
-              <span className="text-2xl text-center">{team.earned}</span>
-              <span className="text-2xl text-center">{team.penalty}</span>
-              <span className="text-2xl text-center">{team.points} Points</span>
+              <span className="text-xl text-center">{team.earned}</span>
+              <span className="text-xl text-center">{team.penalty}</span>
+              <span className="text-xl text-center">{team.points} Points</span>
             </>
           ))}
         </div>
 
         <Pagination
-          size="xl"
+          size="lg"
           total={20}
           siblings={1}
           initialPage={10}
           withEdges
-          className="self-center py-8 border-none"
+          className="self-center py-10 border-none"
         />
       </div>
     </div>
