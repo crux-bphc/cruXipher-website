@@ -1,34 +1,41 @@
-import QuestionViewer from "../components/QuestionViewer";
+import QuestionFragment from "../components/QuestionFragment";
 import { Accordion } from "@mantine/core";
 import { useQuestionsContext } from "../providers/QuestionsProvider";
 import { useState } from "react";
 import LinkButton from "../components/LinkButton";
+import { Notification } from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons";
+import { useLoaderData, useParams } from "react-router-dom";
+import Question from "../types/Question";
 
 const QuestionPage = () => {
   const { QuestionList } = useQuestionsContext();
-  const [accordionValue, setAccordionValue] = useState<string | null>(null);
+  let question = useLoaderData() as Question;
+  const [accordionValue, setAccordionValue] = useState<string | null>(
+    question.category
+  );
+  let params = useParams();
   return (
     <div className="flex py-16">
       <div className="max-w-5xl">
-        <QuestionViewer />
+        <QuestionFragment question={question} />
       </div>
       <div className="pr-16 pl-8 border-l-2 border-dashed border-opacity-30 border-white w-full">
         <h3 className="text-3xl font-bold text-center pb-8">Problem List</h3>
 
-        {QuestionList.map((domain, idx) => {
-          return (
-            // TODO:Change chevron size after a meet
-            <Accordion
-              key={idx}
-              multiple={false}
-              value={accordionValue}
-              onChange={setAccordionValue}
-              classNames={{
-                item: "border-none",
-                control: "text-white text-bold font-sans text-xl",
-                content: "text-white font-sans",
-              }}
-            >
+        <Accordion
+          multiple={false}
+          value={accordionValue}
+          onChange={setAccordionValue}
+          classNames={{
+            item: "border-none",
+            control: "text-white text-bold font-sans text-xl",
+            content: "text-white font-sans",
+          }}
+        >
+          {QuestionList.map((domain, idx) => {
+            return (
+              // TODO:Change chevron size after a meet
               <Accordion.Item value={domain.topic}>
                 <Accordion.Control>{domain.topic}</Accordion.Control>
                 <Accordion.Panel>
@@ -61,9 +68,30 @@ const QuestionPage = () => {
                   </ol>
                 </Accordion.Panel>
               </Accordion.Item>
-            </Accordion>
-          );
-        })}
+            );
+          })}
+        </Accordion>
+      </div>
+      <div className="fixed bottom-8 right-8">
+        <Notification
+          icon={<IconCheck size={18} />}
+          color="teal"
+          title="Correct answer"
+          radius="xs"
+          className="my-4"
+        >
+          beri gud
+        </Notification>
+
+        <Notification
+          icon={<IconX size={18} />}
+          color="red"
+          title="Wrong notif or some shit idk"
+          radius="xs"
+          className="my-4"
+        >
+          Wrong answer dumbfuck
+        </Notification>
       </div>
     </div>
   );

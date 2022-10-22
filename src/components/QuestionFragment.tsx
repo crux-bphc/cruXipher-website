@@ -1,9 +1,6 @@
-import { useLoaderData, useParams } from "react-router-dom";
 import Question from "../types/Question";
 
-const QuestionView = () => {
-  let params = useParams();
-  let question = useLoaderData() as Question;
+const QuestionFragment = ({ question }: { question: Question }) => {
   return (
     <>
       {/* <span>Real slug: {params.slug}</span> */}
@@ -46,4 +43,4 @@ const QuestionView = () => {
   );
 };
 
-export default QuestionView;
+export default QuestionFragment;
