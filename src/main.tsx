@@ -5,7 +5,7 @@ import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <div className="min-h-screen bg-black text-white box-border">
+    <div className="min-h-screen bg-black text-white box-border font-mono">
       <App />
     </div>
   </React.StrictMode>
