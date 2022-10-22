@@ -1,7 +1,7 @@
 import { Pagination } from "@mantine/core";
 import Twemoji from "../components/Twemoji";
 
-const LeaderBoard = () => {
+const Leaderboard = () => {
   let teams = [
     { rank: 1, name: "NeedToSeekHelp", earned: 420, penalty: 10, points: 410 },
     { rank: 2, name: "Wall Socket MMMM", earned: 360, penalty: 0, points: 360 },
@@ -61,4 +61,4 @@ const LeaderBoard = () => {
   );
 };
 
-export default LeaderBoard;
+export default Leaderboard;
