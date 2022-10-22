@@ -29,8 +29,8 @@ const QuestionPage = () => {
           onChange={setAccordionValue}
           classNames={{
             item: "border-none",
-            control: "text-white text-bold font-sans text-xl",
-            content: "text-white font-sans",
+            control: "text-white text-bold font-mono text-xl",
+            content: "text-white font-mono",
           }}
         >
           {QuestionList.map((domain, idx) => {

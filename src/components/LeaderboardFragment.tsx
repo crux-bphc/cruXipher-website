@@ -22,7 +22,7 @@ const LeaderboardFragment = ({ className }: { className?: string }) => {
   return (
     <>
       <div
-        className={`grid grid-cols-2 h-fit gap-6 border-dashed border-opacity-30 pl-12 py-8 border-white border ${className}`}
+        className={`fixed right-8 top-24 grid grid-cols-2 h-fit gap-6 border-dashed border-opacity-30 pl-12 py-8 border-white border ${className}`}
       >
         <span className="text-2xl font-bold text-center">Team Name</span>
         <span className="text-2xl font-bold text-center">Score</span>
