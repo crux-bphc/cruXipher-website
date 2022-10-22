@@ -1,6 +1,6 @@
 import About from "./About";
-import LeaderBoard from "./LeaderBoard";
+import Leaderboard from "./Leaderboard";
 import MainApp from "./MainApp";
 import Rules from "./Rules";
 
-export { About, LeaderBoard, MainApp, Rules };
+export { About, Leaderboard as LeaderBoard, MainApp, Rules };

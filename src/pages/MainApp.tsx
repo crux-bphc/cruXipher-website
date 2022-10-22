@@ -1,12 +1,13 @@
 import Twemoji from "../components/Twemoji";
 import LinkButton from "../components/LinkButton";
 import { useQuestionsContext } from "../providers/QuestionsProvider";
+import LeaderboardFragment from "../components/LeaderboardFragment";
 
 const MainApp = () => {
   const { QuestionList } = useQuestionsContext();
   return (
-    <div className="px-32 pt-16 pb-8">
-      <ol className="list-[upper-alpha] text-4xl">
+    <div className="px-8 pt-16 pb-8 flex">
+      <ol className="px-32 list-[upper-alpha] text-4xl min-w-3xl">
         {QuestionList.map((domain) => {
           return (
             <li key={domain.topic}>
@@ -50,6 +51,8 @@ const MainApp = () => {
           );
         })}
       </ol>
+      <div className="grow"></div>
+      <LeaderboardFragment />
     </div>
   );
 };
