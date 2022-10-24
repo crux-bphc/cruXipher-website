@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="flex justify-between items-center px-6 py-2">
-        <div className="left-nav flex items-center gap-8">
+        <div className="left-nav flex items-center gap-8 sm:flex-col lg:flex-row">
           <Link className="font-bold text-4xl" to="/">
             cruXipher
           </Link>
@@ -30,7 +30,7 @@ const Navbar = () => {
             />
           </div>
         </div>
-        <div className="right-nav flex items-center gap-4">
+        <div className="right-nav flex items-center gap-4 sm:flex-col lg:flex-row">
           <a className="text-white text-xl">{points} points</a>
           <a className="text-white text-xl">[02:00:00]</a>
           <LinkButton

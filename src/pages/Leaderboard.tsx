@@ -22,7 +22,7 @@ const Leaderboard = () => {
   ];
   return (
     <div className="flex flex-col align-middle">
-      <div className="flex flex-col align-middle pt-16 px-32">
+      <div className="flex flex-col align-middle pt-16 px-32 sm:px-28">
         <span className="text-3xl font-bold text-center">LEADERBOARD</span>
         <div className="grid grid-cols-4 gap-4 pt-8">
           <span className="text-2xl font-bold text-center">Team Name</span>

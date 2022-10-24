@@ -6,8 +6,8 @@ import LeaderboardFragment from "../components/LeaderboardFragment";
 const MainApp = () => {
   const { QuestionList } = useQuestionsContext();
   return (
-    <div className="px-8 pt-16 pb-8 flex justify-between">
-      <ol className="px-32 list-[upper-alpha] text-3xl max-w-5xl">
+    <div className="px-8 pt-16 pb-8 flex justify-between md:flex-col lg:flex-row">
+      <ol className="px-32 list-[upper-alpha] text-3xl lg:max-w-5xl md:max-w-3xl">
         {QuestionList.map((domain) => {
           return (
             <li key={domain.topic}>
