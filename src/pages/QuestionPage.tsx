@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import LinkButton from "../components/LinkButton";
 import { Notification } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Question from "../types/Question";
 import { useGlobalContext } from "../context/globalContext";
 
 const QuestionPage = () => {
+  const navigate = useNavigate();
+  if (!sessionStorage.getItem("token")) navigate("/login");
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [questionsList, setQuestionsList] = useState(

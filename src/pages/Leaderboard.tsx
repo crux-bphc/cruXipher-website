@@ -1,6 +1,7 @@
 import { Pagination } from "@mantine/core";
 import { IconX } from "@tabler/icons";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Twemoji from "../components/Twemoji";
 import { useGlobalContext } from "../context/globalContext";
 
@@ -20,6 +21,9 @@ interface Leaderboard {
 }
 
 const Leaderboard = () => {
+  const navigate = useNavigate();
+  if (!sessionStorage.getItem("token")) navigate("/login");
+  
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [teams, setTeams] = useState({} as Leaderboard);

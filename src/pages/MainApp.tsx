@@ -1,8 +1,11 @@
 import Twemoji from "../components/Twemoji";
 import LinkButton from "../components/LinkButton";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MainApp = () => {
+  const navigate = useNavigate();
+  if (!sessionStorage.getItem("token")) navigate("/login");
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [questionsList, setQuestionsList] = useState(
