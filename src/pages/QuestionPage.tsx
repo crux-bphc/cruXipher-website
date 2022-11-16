@@ -1,24 +1,91 @@
 import QuestionFragment from "../components/QuestionFragment";
 import { Accordion } from "@mantine/core";
-import { useQuestionsContext } from "../providers/QuestionsProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LinkButton from "../components/LinkButton";
 import { Notification } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Question from "../types/Question";
+import { useGlobalContext } from "../context/globalContext";
 
 const QuestionPage = () => {
-  const { QuestionList } = useQuestionsContext();
-  let question = useLoaderData() as Question;
-  const [accordionValue, setAccordionValue] = useState<string | null>(
-    question.category
+  const navigate = useNavigate();
+  if (!sessionStorage.getItem("token")) navigate("/login");
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [questionsList, setQuestionsList] = useState(
+    [] as {
+      topic: string;
+      points: number;
+      questions: {
+        slug: string;
+        title: string;
+        points: number;
+        locked: boolean;
+      }[];
+    }[]
   );
-  let params = useParams();
+  const [currentQuestion, setCurrentQuestion] = useState({} as Question);
+  const [accordionValue, setAccordionValue] = useState<string | null>(
+    currentQuestion.category
+  );
+  const params = useParams();
+
+  useEffect(() => {
+    const loadQuestion = async () => {
+      const result = await fetch(
+        import.meta.env.VITE_BACKEND_URL + "/api/questions/" + params.slug,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+          mode: "cors",
+        }
+      );
+      const json = await result.json();
+      if (result.status === 200) {
+        setIsLoaded(true);
+        setCurrentQuestion(json);
+        setAccordionValue(json.category);
+      } else {
+        setIsLoaded(true);
+        setError(error);
+      }
+    };
+    const loadQuestions = async () => {
+      const result = await fetch(
+        import.meta.env.VITE_BACKEND_URL + "/api/questions",
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+          mode: "cors",
+        }
+      );
+      const json = await result.json();
+      if (result.status === 200) {
+        setIsLoaded(true);
+        setQuestionsList(json);
+      } else {
+        setIsLoaded(true);
+        setError(error);
+      }
+    };
+    loadQuestion();
+    loadQuestions();
+  }, []);
+
   return (
     <div className="flex py-16">
       <div className="max-w-6xl">
-        <QuestionFragment question={question} />
+        {isLoaded && <QuestionFragment question={currentQuestion} />}
+        {isLoaded || <div>Loading...</div>}
       </div>
       <div className="pr-16 pl-8 border-l-2 border-dashed border-opacity-30 border-white w-full">
         <h3 className="text-3xl font-bold text-center pb-8">Problem List</h3>
@@ -33,7 +100,7 @@ const QuestionPage = () => {
             content: "text-white font-mono",
           }}
         >
-          {QuestionList.map((domain, idx) => {
+          {questionsList.map((domain, idx) => {
             return (
               // TODO:Change chevron size after a meet
               <Accordion.Item value={domain.topic} key={domain.topic}>

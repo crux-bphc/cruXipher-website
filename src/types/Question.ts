@@ -7,6 +7,4 @@ export default interface Question {
   category: string;
   locked: boolean;
   points: number;
-  attachments: string[];
-  hints: Hint[];
 }

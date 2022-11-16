@@ -3,4 +3,4 @@ import Leaderboard from "./Leaderboard";
 import MainApp from "./MainApp";
 import Rules from "./Rules";
 
-export { About, Leaderboard as LeaderBoard, MainApp, Rules };
+export { About, Leaderboard, MainApp, Rules };

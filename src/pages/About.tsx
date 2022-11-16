@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 const About = () => {
+  const navigate = useNavigate();
+  if (!sessionStorage.getItem("token")) navigate("/login");
   return (
     <div className="px-32 pt-16 pb-8 text-2xl min-h-full text-center">
       Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum

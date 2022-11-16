@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LinkButton from "./LinkButton";
 
 const Navbar = () => {
   const [points, setPoints] = useState(0);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -33,12 +34,17 @@ const Navbar = () => {
         <div className="right-nav flex items-center gap-4 sm:flex-col lg:flex-row">
           <a className="text-white text-xl">{points} points</a>
           <a className="text-white text-xl">[02:00:00]</a>
-          <LinkButton
-            linkText="[logout]"
-            url="#"
-            textColor="text-red"
-            className="decoration-red/0 hover:decoration-red/100"
-          />
+          <button
+            className="text-xl text-red underline underline-offset-4 hover:bg-opacity-20
+            transition-all ease-in-out duration-300 decoration-red/0
+            hover:decoration-red/100"
+            onClick={() => {
+              sessionStorage.clear();
+              navigate("/login");
+            }}
+          >
+            [logout]
+          </button>
         </div>
       </nav>
     </>
