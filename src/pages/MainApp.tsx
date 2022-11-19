@@ -68,7 +68,7 @@ const MainApp = () => {
             return (
               <li key={domain.topic}>
                 <div className="py-4 flex flex-col">
-                  <span className="text-3xl font-medium">
+                  <span className="text-2xl font-medium">
                     {domain.topic} [{domain.points}]
                   </span>
                   <ol className="list-decimal px-12">
@@ -77,7 +77,7 @@ const MainApp = () => {
                         <li
                           className={
                             question.slug +
-                            " text-2xl pt-1 font-normal" +
+                            " text-xl pt-1 font-normal" +
                             (question.locked == true
                               ? " text-grey"
                               : " text-white")
@@ -94,7 +94,7 @@ const MainApp = () => {
                               linkText={`${question.title} [${question.points}]`}
                               url={`/question/${question.slug}`}
                               textColor={"text-white"}
-                              textSize="text-2xl"
+                              textSize="text-xl"
                               className="hover:bg-white decoration-white/0 hover:decoration-white/100"
                             />
                           )}
