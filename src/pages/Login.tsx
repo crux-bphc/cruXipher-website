@@ -58,10 +58,10 @@ const Login = () => {
   if (sessionStorage.getItem("token")) navigate("/");
   return (
     <>
-      <div className="w-full h-screen flex items-center pt-56 pb-20 flex-col">
+      <div className="w-full h-screen flex items-center pt-40 pb-20 flex-col">
         <LoadingOverlay visible={isLoading} overlayBlur={1} />
         <form className="w-1/3" onSubmit={handleLogin}>
-          <h1 className="text-6xl font-bold py-8 text-center">Login</h1>
+          <h1 className="text-5xl font-bold py-8 text-center">Login</h1>
           <CustomInput
             placeholder="Team username"
             className="p-2"

@@ -63,7 +63,7 @@ const MainApp = () => {
   } else {
     return (
       <div className="px-8 pt-16 pb-8 flex justify-between md:flex-col lg:flex-row">
-        <ol className="px-32 list-[upper-alpha] text-3xl lg:max-w-5xl md:max-w-3xl">
+        <ol className="px-32 list-[upper-alpha] text-2xl lg:max-w-5xl md:max-w-3xl">
           {questionsList.map((domain) => {
             return (
               <li key={domain.topic}>
