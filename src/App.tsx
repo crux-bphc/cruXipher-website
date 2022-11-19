@@ -21,7 +21,7 @@ function App() {
       }}
     >
       <ModalsProvider>
-        <NotificationsProvider>
+        <NotificationsProvider position="top-right">
           <RouterProvider
             router={createBrowserRouter(
               createRoutesFromElements(
