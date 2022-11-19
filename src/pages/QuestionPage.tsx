@@ -34,7 +34,11 @@ const QuestionPage = () => {
   useEffect(() => {
     const loadQuestion = async () => {
       const result = await fetch(
-        import.meta.env.VITE_BACKEND_URL + "/api/questions/" + params.slug,
+        (import.meta.env.VITE_BACKEND_URL
+          ? import.meta.env.VITE_BACKEND_URL
+          : "") +
+          "/api/questions/" +
+          params.slug,
         {
           method: "GET",
           headers: {
@@ -57,7 +61,9 @@ const QuestionPage = () => {
     };
     const loadQuestions = async () => {
       const result = await fetch(
-        import.meta.env.VITE_BACKEND_URL + "/api/questions",
+        (import.meta.env.VITE_BACKEND_URL
+          ? import.meta.env.VITE_BACKEND_URL
+          : "") + "/api/questions",
         {
           method: "GET",
           headers: {

@@ -22,15 +22,20 @@ const MainApp = () => {
   );
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_BACKEND_URL + "/api/questions", {
-      method: "GET",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-      },
-      mode: "cors",
-    })
+    fetch(
+      (import.meta.env.VITE_BACKEND_URL
+        ? import.meta.env.VITE_BACKEND_URL
+        : "") + "/api/questions",
+      {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+        mode: "cors",
+      }
+    )
       .then((res) => res.json())
       .then(
         (result) => {

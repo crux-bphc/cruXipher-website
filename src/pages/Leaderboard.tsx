@@ -23,7 +23,7 @@ interface Leaderboard {
 const Leaderboard = () => {
   const navigate = useNavigate();
   if (!sessionStorage.getItem("token")) navigate("/login");
-  
+
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [teams, setTeams] = useState({} as Leaderboard);
@@ -32,7 +32,11 @@ const Leaderboard = () => {
   const handlePagination = async (page: number) => {
     setIsLoaded(false);
     const response = await fetch(
-      import.meta.env.VITE_BACKEND_URL + "/api/leaderboard/" + String(page),
+      (import.meta.env.VITE_BACKEND_URL
+        ? import.meta.env.VITE_BACKEND_URL
+        : "") +
+        "/api/leaderboard/" +
+        String(page),
       {
         method: "GET",
         headers: {
@@ -69,7 +73,9 @@ const Leaderboard = () => {
   useEffect(() => {
     const loadNumberOfPages = async () => {
       const result = await fetch(
-        import.meta.env.VITE_BACKEND_URL + "/api/leaderboardpages",
+        (import.meta.env.VITE_BACKEND_URL
+          ? import.meta.env.VITE_BACKEND_URL
+          : "") + "/api/leaderboardpages",
         {
           method: "GET",
           headers: {
@@ -89,7 +95,9 @@ const Leaderboard = () => {
     };
     const loadInitialPage = async () => {
       const result = await fetch(
-        import.meta.env.VITE_BACKEND_URL + "/api/leaderboard/1",
+        (import.meta.env.VITE_BACKEND_URL
+          ? import.meta.env.VITE_BACKEND_URL
+          : "") + "/api/leaderboard/1",
         {
           method: "GET",
           headers: {

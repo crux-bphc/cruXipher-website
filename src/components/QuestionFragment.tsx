@@ -14,7 +14,9 @@ const QuestionFragment = ({ question }: { question: Question }) => {
       slug: question.slug,
     };
     const response = await fetch(
-      import.meta.env.VITE_BACKEND_URL + "/api/hint",
+      (import.meta.env.VITE_BACKEND_URL
+        ? import.meta.env.VITE_BACKEND_URL
+        : "") + "/api/hint",
       {
         method: "POST",
         headers: {
@@ -66,7 +68,9 @@ const QuestionFragment = ({ question }: { question: Question }) => {
       slug: question.slug,
     };
     const response = await fetch(
-      import.meta.env.VITE_BACKEND_URL + "/api/hintused",
+      (import.meta.env.VITE_BACKEND_URL
+        ? import.meta.env.VITE_BACKEND_URL
+        : "") + "/api/hintused",
       {
         method: "POST",
         headers: {
@@ -148,7 +152,9 @@ const QuestionFragment = ({ question }: { question: Question }) => {
     };
 
     const response = await fetch(
-      import.meta.env.VITE_BACKEND_URL + "/api/submit",
+      (import.meta.env.VITE_BACKEND_URL
+        ? import.meta.env.VITE_BACKEND_URL
+        : "") + "/api/submit",
       {
         method: "POST",
         headers: {

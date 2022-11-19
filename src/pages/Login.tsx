@@ -20,15 +20,20 @@ const Login = () => {
     };
 
     const response = await (
-      await fetch(import.meta.env.VITE_BACKEND_URL + "/api/login", {
-        method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        body: JSON.stringify(loginDetails),
-      })
+      await fetch(
+        (import.meta.env.VITE_BACKEND_URL
+          ? import.meta.env.VITE_BACKEND_URL
+          : "") + "/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+          mode: "cors",
+          body: JSON.stringify(loginDetails),
+        }
+      )
     ).json();
     if (response.token) {
       setIsLoading(false);
