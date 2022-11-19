@@ -1,10 +1,114 @@
-import { useState } from "react";
+import { IconX } from "@tabler/icons";
+import { useEffect, useState, useReducer, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../context/globalContext";
 import LinkButton from "./LinkButton";
+
+type IntervalFunction = () => unknown | void;
+
+function useInterval(callback: IntervalFunction, delay: number) {
+  const savedCallback = useRef<IntervalFunction | null>(null);
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  });
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      if (savedCallback.current !== null) {
+        savedCallback.current();
+      }
+    }
+    const id = setInterval(tick, delay);
+    return () => clearInterval(id);
+  }, [delay]);
+}
 
 const Navbar = () => {
   const [points, setPoints] = useState(0);
+  const [time, setTime] = useState(new Date());
   const navigate = useNavigate();
+  const { globalDispatch } = useGlobalContext();
+
+  const updateTimer = async () => {
+    const loadTimer = async () => {
+      const res = await fetch(
+        (import.meta.env.VITE_BACKEND_URL
+          ? import.meta.env.VITE_BACKEND_URL
+          : "") + "/api/time",
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+          mode: "cors",
+        }
+      );
+      const result = await res.json();
+      if (res.status === 200) {
+        setTime(new Date(result.timeLeft));
+      } else {
+        globalDispatch({
+          type: "show error",
+          payload: {
+            title: result.message,
+            icon: <IconX size={18} />,
+            message: undefined,
+          },
+        });
+      }
+    };
+    loadTimer();
+  };
+
+  const updatePoints = async () => {
+    const loadPoints = async () => {
+      const res = await fetch(
+        (import.meta.env.VITE_BACKEND_URL
+          ? import.meta.env.VITE_BACKEND_URL
+          : "") + "/api/points",
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+          mode: "cors",
+        }
+      );
+      const result = await res.json();
+      if (res.status === 200) {
+        setPoints(result.points);
+      } else {
+        globalDispatch({
+          type: "show error",
+          payload: {
+            title: result.message,
+            icon: <IconX size={18} />,
+            message: undefined,
+          },
+        });
+      }
+    };
+    loadPoints();
+  };
+
+  useInterval(() => {
+    setTime(new Date(time.getTime() - 1000));
+  }, 1000);
+
+  useInterval(() => {
+    updatePoints();
+  }, 60000);
+
+  useInterval(() => {
+    updateTimer();
+  }, 60000);
 
   return (
     <>
@@ -33,7 +137,13 @@ const Navbar = () => {
         </div>
         <div className="right-nav flex items-center gap-4 sm:flex-col lg:flex-row">
           <a className="text-white text-xl">{points} points</a>
-          <a className="text-white text-xl">[02:00:00]</a>
+          <a className="text-white text-xl">
+            [
+            {`${String(time.getHours()).padStart(2, "0")}:${String(
+              time.getMinutes()
+            ).padStart(2, "0")}:${String(time.getSeconds()).padStart(2, "0")}`}
+            ]
+          </a>
           <button
             className="text-xl text-red underline underline-offset-4 hover:bg-opacity-20
             transition-all ease-in-out duration-300 decoration-red/0
