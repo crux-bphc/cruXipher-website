@@ -1,5 +1,3 @@
-import Hint from "./Hint";
-
 export default interface Question {
   slug: string;
   title: string;
