@@ -87,7 +87,7 @@ export const reducer = (
 
     case "show error":
       showNotification({
-        disallowClose: true,
+        disallowClose: false,
         autoClose: 3000,
         className: "pb-24 mb-24",
         color: "red",
