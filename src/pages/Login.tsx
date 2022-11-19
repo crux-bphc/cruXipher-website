@@ -55,6 +55,7 @@ const Login = () => {
             inputRef={usernameRef}
           />
           <CustomInput
+            type="password"
             placeholder="Team password"
             className="p-2"
             inputRef={passwordRef}
