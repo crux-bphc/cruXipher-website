@@ -104,7 +104,6 @@ const Leaderboard = () => {
       if (result.status === 200) {
         setIsLoaded(true);
         setTeams(json);
-        console.log(json);
       } else {
         setIsLoaded(true);
         globalDispatch({
