@@ -22,31 +22,31 @@ const MainApp = () => {
   );
 
   useEffect(() => {
-    fetch(
-      (import.meta.env.VITE_BACKEND_URL
-        ? import.meta.env.VITE_BACKEND_URL
-        : "") + "/api/questions",
-      {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-        mode: "cors",
-      }
-    )
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setQuestionsList(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
+    const fetchQuestions = async () => {
+      const res = await fetch(
+        (import.meta.env.VITE_BACKEND_URL
+          ? import.meta.env.VITE_BACKEND_URL
+          : "") + "/api/questions",
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+          mode: "cors",
         }
       );
+      const result = await res.json();
+      if (res.status === 200) {
+        setIsLoaded(true);
+        setQuestionsList(result);
+      } else {
+        setIsLoaded(true);
+        setError(error);
+      }
+    };
+    fetchQuestions();
   }, []);
 
   if (error) {
