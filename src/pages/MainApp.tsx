@@ -2,12 +2,14 @@ import Twemoji from "../components/Twemoji";
 import LinkButton from "../components/LinkButton";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../context/globalContext";
+import { IconX } from "@tabler/icons";
 
 const MainApp = () => {
   const navigate = useNavigate();
   if (!sessionStorage.getItem("token")) navigate("/login");
-  const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const { globalDispatch } = useGlobalContext();
   const [questionsList, setQuestionsList] = useState(
     [] as {
       topic: string;
@@ -43,15 +45,20 @@ const MainApp = () => {
         setQuestionsList(result);
       } else {
         setIsLoaded(true);
-        setError(error);
+        globalDispatch({
+          type: "show error",
+          payload: {
+            title: result.message,
+            icon: <IconX size={18} />,
+            message: undefined,
+          },
+        });
       }
     };
     fetchQuestions();
   }, []);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  } else if (!isLoaded) {
+  if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
     return (

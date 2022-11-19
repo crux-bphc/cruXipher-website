@@ -1,12 +1,12 @@
 import { closeAllModals, openConfirmModal, openModal } from "@mantine/modals";
-import { IconCheck, IconX } from "@tabler/icons";
 import { useRef } from "react";
 import { useGlobalContext } from "../context/globalContext";
+import { IconX, IconCheck } from "@tabler/icons";
 import Question from "../types/Question";
 import CustomInput from "./CustomInput";
 
 const QuestionFragment = ({ question }: { question: Question }) => {
-  const { globalDispatch, globalState } = useGlobalContext();
+  const { globalDispatch } = useGlobalContext();
   const flagRef = useRef<HTMLInputElement>(null);
 
   const showHint = async () => {

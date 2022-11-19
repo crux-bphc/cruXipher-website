@@ -4,30 +4,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Twemoji from "../components/Twemoji";
 import { useGlobalContext } from "../context/globalContext";
-
-interface RankedTeam {
-  rank: number;
-  username: string;
-  pointsEarned: number;
-  points: number;
-  bonus: number;
-  penalty: number;
-  lastEarned: string;
-}
-
-interface Leaderboard {
-  self: RankedTeam;
-  leaderboard: RankedTeam[];
-}
+import Leaderboard from "../types/Leaderboard";
 
 const Leaderboard = () => {
   const navigate = useNavigate();
   if (!sessionStorage.getItem("token")) navigate("/login");
 
-  const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [teams, setTeams] = useState({} as Leaderboard);
-  const { globalDispatch, globalState } = useGlobalContext();
+  const { globalDispatch } = useGlobalContext();
   const [numberOfPages, setNumberOfPages] = useState(1);
   const handlePagination = async (page: number) => {
     setIsLoaded(false);
@@ -90,7 +75,14 @@ const Leaderboard = () => {
       if (result.status === 200) {
         setNumberOfPages(json.message);
       } else {
-        setError(error);
+        globalDispatch({
+          type: "show error",
+          payload: {
+            title: json.message,
+            icon: <IconX size={18} />,
+            message: undefined,
+          },
+        });
       }
     };
     const loadInitialPage = async () => {
@@ -115,7 +107,14 @@ const Leaderboard = () => {
         console.log(json);
       } else {
         setIsLoaded(true);
-        setError(error);
+        globalDispatch({
+          type: "show error",
+          payload: {
+            title: json.message,
+            icon: <IconX size={18} />,
+            message: undefined,
+          },
+        });
       }
     };
     loadNumberOfPages();
@@ -140,10 +139,7 @@ const Leaderboard = () => {
   //   },
   //   { rank: 10, name: "WeLoveFORTRAN", earned: 260, penalty: 30, points: 230 },
   // ];
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  } else if (!isLoaded) {
+  if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
     return (

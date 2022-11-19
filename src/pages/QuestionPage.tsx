@@ -2,16 +2,15 @@ import QuestionFragment from "../components/QuestionFragment";
 import { Accordion } from "@mantine/core";
 import { useEffect, useState } from "react";
 import LinkButton from "../components/LinkButton";
-import { Notification } from "@mantine/core";
+import { useGlobalContext } from "../context/globalContext";
 import { IconCheck, IconX } from "@tabler/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import Question from "../types/Question";
-import { useGlobalContext } from "../context/globalContext";
 
 const QuestionPage = () => {
   const navigate = useNavigate();
   if (!sessionStorage.getItem("token")) navigate("/login");
-  const [error, setError] = useState(null);
+  const { globalDispatch, globalState } = useGlobalContext();
   const [isLoaded, setIsLoaded] = useState(false);
   const [questionsList, setQuestionsList] = useState(
     [] as {
@@ -56,7 +55,14 @@ const QuestionPage = () => {
         setAccordionValue(json.category);
       } else {
         setIsLoaded(true);
-        setError(error);
+        globalDispatch({
+          type: "show error",
+          payload: {
+            title: json.message,
+            icon: <IconX size={18} />,
+            message: undefined,
+          },
+        });
       }
     };
     const loadQuestions = async () => {
@@ -80,7 +86,14 @@ const QuestionPage = () => {
         setQuestionsList(json);
       } else {
         setIsLoaded(true);
-        setError(error);
+        globalDispatch({
+          type: "show error",
+          payload: {
+            title: json.message,
+            icon: <IconX size={18} />,
+            message: undefined,
+          },
+        });
       }
     };
     loadQuestion();
@@ -106,14 +119,14 @@ const QuestionPage = () => {
             content: "text-white font-mono",
           }}
         >
-          {questionsList.map((domain, idx) => {
+          {questionsList.map((domain, _) => {
             return (
               // TODO:Change chevron size after a meet
               <Accordion.Item value={domain.topic} key={domain.topic}>
                 <Accordion.Control>{domain.topic}</Accordion.Control>
                 <Accordion.Panel>
                   <ol className="list-decimal pl-8">
-                    {domain.questions.map((question, idx) => (
+                    {domain.questions.map((question, _) => (
                       <li
                         className={
                           question.slug +
@@ -145,27 +158,6 @@ const QuestionPage = () => {
             );
           })}
         </Accordion>
-      </div>
-      <div className="fixed bottom-8 right-8">
-        <Notification
-          icon={<IconCheck size={18} />}
-          color="teal"
-          title="Correct answer"
-          radius="xs"
-          className="my-4"
-        >
-          beri gud
-        </Notification>
-
-        <Notification
-          icon={<IconX size={18} />}
-          color="red"
-          title="Wrong notif or some shit idk"
-          radius="xs"
-          className="my-4"
-        >
-          Wrong answer dumbfuck
-        </Notification>
       </div>
     </div>
   );
