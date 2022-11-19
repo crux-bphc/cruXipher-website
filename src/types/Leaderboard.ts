@@ -8,7 +8,7 @@ interface RankedTeam {
   lastEarned: string;
 }
 
-export default interface Leaderboard {
+export default interface LeaderboardType {
   self: RankedTeam;
   leaderboard: RankedTeam[];
 }

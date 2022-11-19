@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Twemoji from "../components/Twemoji";
 import { useGlobalContext } from "../context/globalContext";
-import Leaderboard from "../types/Leaderboard";
+import LeaderboardType from "../types/Leaderboard";
 
 const Leaderboard = () => {
   const navigate = useNavigate();
   if (!sessionStorage.getItem("token")) navigate("/login");
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [teams, setTeams] = useState({} as Leaderboard);
+  const [teams, setTeams] = useState({} as LeaderboardType);
   const { globalDispatch } = useGlobalContext();
   const [numberOfPages, setNumberOfPages] = useState(1);
   const handlePagination = async (page: number) => {
