@@ -28,7 +28,9 @@ function useInterval(callback: IntervalFunction, delay: number) {
 
 const Navbar = () => {
   const [points, setPoints] = useState(0);
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(
+    new Date(1669458600000 - new Date().getTime())
+  );
   const navigate = useNavigate();
   const { globalDispatch } = useGlobalContext();
 
@@ -97,6 +99,39 @@ const Navbar = () => {
     };
     loadPoints();
   };
+
+  useEffect(() => {
+    const loadPoints = async () => {
+      const res = await fetch(
+        (import.meta.env.VITE_BACKEND_URL
+          ? import.meta.env.VITE_BACKEND_URL
+          : "") + "/api/points",
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+          mode: "cors",
+        }
+      );
+      const result = await res.json();
+      if (res.status === 200) {
+        setPoints(result.points);
+      } else {
+        globalDispatch({
+          type: "show error",
+          payload: {
+            title: result.message,
+            icon: <IconX size={18} />,
+            message: undefined,
+          },
+        });
+      }
+    };
+    loadPoints();
+  }, []);
 
   useInterval(() => {
     setTime(new Date(time.getTime() - 1000));
