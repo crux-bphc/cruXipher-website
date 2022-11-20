@@ -1,30 +1,9 @@
 import { IconX } from "@tabler/icons";
-import { useEffect, useState, useReducer, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/globalContext";
 import LinkButton from "./LinkButton";
-
-type IntervalFunction = () => unknown | void;
-
-function useInterval(callback: IntervalFunction, delay: number) {
-  const savedCallback = useRef<IntervalFunction | null>(null);
-
-  // Remember the latest callback.
-  useEffect(() => {
-    savedCallback.current = callback;
-  });
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      if (savedCallback.current !== null) {
-        savedCallback.current();
-      }
-    }
-    const id = setInterval(tick, delay);
-    return () => clearInterval(id);
-  }, [delay]);
-}
+import useInterval from "../hooks/useInterval";
 
 const Navbar = () => {
   const [points, setPoints] = useState(0);
@@ -33,6 +12,37 @@ const Navbar = () => {
   );
   const navigate = useNavigate();
   const { globalDispatch } = useGlobalContext();
+
+  const logout = async () => {
+    const res = await fetch(
+      (import.meta.env.VITE_BACKEND_URL
+        ? import.meta.env.VITE_BACKEND_URL
+        : "") + "/api/logout",
+      {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+        mode: "cors",
+      }
+    );
+    const result = await res.json();
+    if (res.status === 200) {
+      sessionStorage.clear();
+      navigate("/login");
+    } else {
+      globalDispatch({
+        type: "show error",
+        payload: {
+          title: result.message,
+          icon: <IconX size={18} />,
+          message: undefined,
+        },
+      });
+    }
+  };
 
   const updateTimer = async () => {
     const loadTimer = async () => {
@@ -183,10 +193,7 @@ const Navbar = () => {
             className="text-xl text-red underline underline-offset-4 hover:bg-opacity-20
             transition-all ease-in-out duration-300 decoration-red/0
             hover:decoration-red/100"
-            onClick={() => {
-              sessionStorage.clear();
-              navigate("/login");
-            }}
+            onClick={logout}
           >
             [logout]
           </button>
