@@ -12,8 +12,41 @@ import { MantineProvider } from "@mantine/core";
 import Login from "./pages/Login";
 import { NotificationsProvider } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
+import { useBeforeunload } from "react-beforeunload";
+import { useGlobalContext } from "./context/globalContext";
+import { IconX } from "@tabler/icons";
 
-function App() {
+const App = () => {
+  const { globalDispatch } = useGlobalContext();
+  useBeforeunload(async () => {
+    const res = await fetch(
+      (import.meta.env.VITE_BACKEND_URL
+        ? import.meta.env.VITE_BACKEND_URL
+        : "") + "/api/logout",
+      {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+        mode: "cors",
+      }
+    );
+    const result = await res.json();
+    if (res.status === 200) {
+      sessionStorage.clear();
+    } else {
+      globalDispatch({
+        type: "show error",
+        payload: {
+          title: result.message,
+          icon: <IconX size={18} />,
+          message: undefined,
+        },
+      });
+    }
+  });
   return (
     <MantineProvider
       theme={{
@@ -21,7 +54,7 @@ function App() {
       }}
     >
       <ModalsProvider>
-        <NotificationsProvider>
+        <NotificationsProvider position="top-right">
           <RouterProvider
             router={createBrowserRouter(
               createRoutesFromElements(
@@ -44,6 +77,6 @@ function App() {
       </ModalsProvider>
     </MantineProvider>
   );
-}
+};
 
 export default App;

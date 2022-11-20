@@ -1,6 +1,7 @@
 import { globalStateInterface } from "../types/State";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import { MantineNumberSize } from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons";
 
 export type ACTIONS =
   | {
@@ -33,6 +34,14 @@ export type ACTIONS =
         loading: boolean;
         disallowClose: boolean;
         autoClose?: boolean | number;
+      };
+    }
+  | {
+      type: "show error";
+      payload: {
+        title: string;
+        message: string | undefined;
+        icon: React.ReactNode;
       };
     }
   | {
@@ -76,11 +85,29 @@ export const reducer = (
         isLoading: true,
       };
 
+    case "show error":
+      showNotification({
+        disallowClose: false,
+        autoClose: 3000,
+        className: "pb-24 mb-24",
+        color: "red",
+        title: action.payload.title,
+        radius: "xs",
+        id: "error",
+        loading: false,
+        message: action.payload.message,
+        icon: action.payload.icon,
+      });
+      return {
+        ...state,
+      };
+
     case "send notification":
       showNotification(action.payload);
       return {
         ...state,
       };
+
     case "update notification":
       updateNotification(action.payload);
       return {
